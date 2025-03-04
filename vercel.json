@@ -1,11 +1,10 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "api/make-call.js",
-      "use": "@vercel/node@2"
+  "functions": {
+    "api/make-call.js": {
+      "runtime": "nodejs18.x"
     }
-  ],
+  },
   "routes": [
     {
       "src": "/api/make-call",
