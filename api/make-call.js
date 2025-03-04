@@ -10,6 +10,11 @@ module.exports = async (req, res) => {
     const accountSid = process.env.TWILIO_ACCOUNT_SID;
     const authToken = process.env.TWILIO_AUTH_TOKEN;
     const twilioPhoneNumber = process.env.TWILIO_PHONE_NUMBER;
+
+    if (!accountSid || !authToken || !twilioPhoneNumber) {
+        return res.status(500).json({ error: "Twilio credentials are missing in environment variables." });
+    }
+
     const twilioClient = twilio(accountSid, authToken);
 
     try {
@@ -27,7 +32,7 @@ module.exports = async (req, res) => {
 
         res.json({ success: true, callSid: call.sid });
     } catch (error) {
-        console.error("Error making call:", error);
+        console.error("❌ Error making call:", error);
         res.status(500).json({ error: error.message });
     }
 };
